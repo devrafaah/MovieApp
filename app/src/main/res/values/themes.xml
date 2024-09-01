@@ -25,4 +25,13 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/urbanist_700</item>
     </style>
+
+
+    <style name="EditText">
+        <item name="android:background">@drawable/custom_bg_edit</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">@font/urbanist_600</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>
