@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,4 +48,33 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    // Splash API
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
+    // firebase authentication
+    implementation("com.google.firebase:firebase-auth")
+    // firebase realtime database
+    implementation("com.google.firebase:firebase-database")
+    // firebase storage
+    implementation("com.google.firebase:firebase-storage")
+
+    // hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+
+    // lottieAnimation
+    implementation("com.airbnb.android:lottie:6.5.0")
+
+}
+kapt {
+    correctErrorTypes = true
 }
