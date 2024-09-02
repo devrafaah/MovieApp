@@ -47,9 +47,11 @@
         <EditText
             android:id="@+id/login_email"
             style="@style/EditText"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
             android:hint="@string/text_hint_edit_email_login_fragment"
             android:inputType="textEmailAddress"
@@ -62,9 +64,11 @@
         <EditText
             android:id="@+id/login_password"
             style="@style/EditText"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
             android:hint="@string/text_hint_edit_password_login_fragment"
             android:inputType="textPassword"
@@ -88,6 +92,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_password" />
 
+
+        <ImageView
+            android:id="@+id/progressBarLoading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="10dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btn"
+            tools:src="@drawable/loading"
+            tools:visibility="visible"
+            android:contentDescription="@string/todo" />
+
         <TextView
             android:id="@+id/login_forgot"
             android:layout_width="wrap_content"
@@ -96,19 +115,19 @@
             android:textSize="16sp"
             android:fontFamily="@font/urbanist_600"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="10dp"
             android:text="@string/text_forgot_password_login_fragment"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBarLoading" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
