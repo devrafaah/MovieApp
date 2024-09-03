@@ -37,6 +37,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -73,6 +76,19 @@ dependencies {
 
     // lottieAnimation
     implementation("com.airbnb.android:lottie:6.5.0")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+
+    //Glider
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 }
 kapt {

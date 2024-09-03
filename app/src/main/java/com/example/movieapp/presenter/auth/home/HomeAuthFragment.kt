@@ -9,7 +9,6 @@ import com.example.movieapp.R
 
 class HomeAuthFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

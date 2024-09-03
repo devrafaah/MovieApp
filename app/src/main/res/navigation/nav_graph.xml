@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/forgotFragment">
+
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.example.movieapp.presenter.auth.forget.ForgotFragment"
+        android:label="fragment_forgot"
+        tools:layout="@layout/fragment_forgot" />
+    <fragment
+        android:id="@+id/homeAuthFragment"
+        android:name="com.example.movieapp.presenter.auth.home.HomeAuthFragment"
+        android:label="fragment_home_auth"
+        tools:layout="@layout/fragment_home_auth" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.movieapp.presenter.auth.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.example.movieapp.presenter.onBoarding.OnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.movieapp.presenter.auth.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+</navigation>

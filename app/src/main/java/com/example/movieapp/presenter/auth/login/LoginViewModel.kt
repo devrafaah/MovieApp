@@ -1,0 +1,26 @@
+package com.example.movieapp.presenter.auth.login
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.example.movieapp.domain.usecase.auth.LoginUseCase
+import com.example.movieapp.domain.usecase.auth.RegisterUseCase
+import com.example.movieapp.util.StateView
+import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
+
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
+
+    fun login(email: String, password: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(StateView.Loading())
+
+            val user = loginUseCase.invoke(email, password)
+
+            emit(StateView.Success(user))
+        } catch (ex: Exception){
+            emit(StateView.Error(message = ex.message))
+        }
+    }
+}
