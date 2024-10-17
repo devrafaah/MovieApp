@@ -2,16 +2,18 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MovieApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/color_default</item>
+        <item name="colorPrimaryVariant">@color/color_default</item>
+        <item name="colorOnPrimary">@color/white</item>
+
         <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/color_default</item>
+        <item name="colorSecondaryVariant">@color/color_default</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
 
@@ -33,5 +35,10 @@
         <item name="android:padding">16dp</item>
         <item name="android:fontFamily">@font/urbanist_600</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextActive">
+        <item name="android:textColor">@color/color_default</item>
+        <item name="android:elevation">70dp</item>
     </style>
 </resources>

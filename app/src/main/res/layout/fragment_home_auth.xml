@@ -129,7 +129,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_SignIn"
             style="@style/ButtonDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/btn_SignIn"
             app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="0dp">
 
@@ -160,6 +160,7 @@
                 android:textColor="#9E9E9E" />
 
             <TextView
+                android:id="@+id/btn_signUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

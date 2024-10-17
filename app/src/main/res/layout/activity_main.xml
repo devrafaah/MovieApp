@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.navigation.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id=""
-    app:navGraph=""
     android:layout_height="match_parent"
-    tools:context=".presenter.MainActivity"/>
+    android:orientation="vertical"
+    tools:context=".presenter.main.activity.MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        android:layout_weight="1"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/main_graph"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btnv"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="@drawable/bg_bottombar"
+        app:itemIconTint="@null"
+        app:itemTextAppearanceActive="@style/TextActive"
+        app:itemTextColor="@null"
+        app:itemPaddingBottom="16dp"
+        app:itemPaddingTop="16dp"
+        app:itemActiveIndicatorStyle="@style/TextActive"
+        android:elevation="@null"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_main" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

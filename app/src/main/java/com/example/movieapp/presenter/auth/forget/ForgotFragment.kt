@@ -1,19 +1,21 @@
 package com.example.movieapp.presenter.auth.forget
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentForgotBinding
-import com.example.movieapp.databinding.FragmentLoginBinding
-import com.example.movieapp.presenter.auth.login.LoginViewModel
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.hideKeyboard
+import com.example.movieapp.util.initToolbar
+import com.example.movieapp.util.isEmailValid
+import com.example.movieapp.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -34,7 +36,7 @@ class ForgotFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initToolbar(binding.toolbar)
         initListener()
 
     }
@@ -52,22 +54,27 @@ class ForgotFragment : Fragment() {
     private fun validateData() {
         val email = binding.forgotEmail.text.toString()
 
-        if(email.isNotEmpty()) {
-            forgotPassword(email)
+        if(email.isEmailValid()) {
+            hideKeyboard()
+            forgot(email)
         }else {
-
+            showSnackBar(
+                R.string.text_email_empty
+            )
         }
     }
-    private fun forgotPassword(email: String) {
+
+    private fun forgot(email: String) {
         viewmodel.forgot(email).observe(viewLifecycleOwner) { stateView ->
             when(stateView) {
                 is StateView.Loading -> {
                     binding.progressBarLoading.isVisible = true
                 }
                 is StateView.Success -> {
+                    showSnackBar(
+                        R.string.text_send_email_sucess_forgot_fragment
+                    )
                     binding.progressBarLoading.isVisible = false
-                    Toast.makeText(requireContext(), "Email enviado com sucesso!", Toast.LENGTH_SHORT).show()
-
                 }
                 is StateView.Error -> {
                     binding.progressBarLoading.isVisible = false
@@ -75,6 +82,10 @@ class ForgotFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
 }
