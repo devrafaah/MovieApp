@@ -1,8 +1,7 @@
 package com.example.movieapp.presenter.main.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,9 +21,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         initNavigation()
+
     }
 
     private fun initNavigation() {
@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.btnv,navController)
 
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            binding.btnv.isVisible
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.btnv.isVisible =
                 destination.id == R.id.menu_home ||
                 destination.id == R.id.menu_search ||
                 destination.id == R.id.menu_favorite ||

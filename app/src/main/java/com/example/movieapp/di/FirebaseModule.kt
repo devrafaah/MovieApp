@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object FirebaseModule {
 
-    //prover para injetar o serviço // implementação externa ex: firebase, retrofit
+
     @Provides
     fun providesFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()

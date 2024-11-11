@@ -6,28 +6,60 @@
     app:startDestination="@id/menu_home">
 
     <fragment
-        android:id="@+id/menu_download"
-        android:name="com.example.movieapp.presenter.main.download.DownloadFragment"
-        android:label="fragment_download"
-        tools:layout="@layout/fragment_download" />
+        android:id="@+id/menu_home"
+        android:name="com.example.movieapp.presenter.main.bottomBar.home.first_screen.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/actionMenuHomeToMovieGenreFragment"
+            app:destination="@id/movieGenreFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_search"
+        android:name="com.example.movieapp.presenter.main.bottomBar.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+
     <fragment
         android:id="@+id/menu_favorite"
-        android:name="com.example.movieapp.presenter.main.favorite.FavoriteFragment"
+        android:name="com.example.movieapp.presenter.main.bottomBar.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+
     <fragment
-        android:id="@+id/menu_home"
-        android:name="com.example.movieapp.presenter.main.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/menu_download"
+        android:name="com.example.movieapp.presenter.main.bottomBar.download.DownloadFragment"
+        android:label="fragment_download"
+        tools:layout="@layout/fragment_download" />
+
+
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.example.movieapp.presenter.main.profile.ProfileFragment"
+        android:name="com.example.movieapp.presenter.main.bottomBar.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/menu_search"
-        android:name="com.example.movieapp.presenter.main.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/movieGenreFragment"
+        android:name="com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.MovieGenreFragment"
+        android:label="fragment_movie_genre"
+        tools:layout="@layout/fragment_movie_genre" >
+        <argument
+            android:name="genreId"
+            app:argType="integer" />
+        <argument
+            android:name="genreName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.movieapp.presenter.main.bottomBar.movie_details.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+    <action android:id="@+id/action_global_movieDetailsFragment" app:destination="@id/movieDetailsFragment" />
+
 </navigation>
