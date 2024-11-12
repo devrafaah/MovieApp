@@ -1,17 +1,18 @@
 package com.example.movieapp.presenter.main.bottomBar.movie_details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
 import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.presenter.main.bottomBar.movie_details.adapter.CastAdapter
 import com.example.movieapp.util.StateView
 import com.example.movieapp.util.initToolbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,7 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
 
     private val viewModel: MovieDetailsViewModel by viewModels()
+    private lateinit var castAdapter: CastAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,8 @@ class MovieDetailsFragment : Fragment() {
     private fun initListeners() {
         initToolbar(toolbar = binding.toolbar, lightIcon = true)
         getMovieDetails()
+        getCredits()
+        initRecyclerView()
     }
 
 
@@ -60,6 +64,30 @@ class MovieDetailsFragment : Fragment() {
                 }
 
             }
+        }
+    }
+    private fun getCredits() {
+        viewModel.getMovieCreditsDetails(args.movieId).observe(viewLifecycleOwner) { stateView ->
+            when(stateView) {
+                is StateView.Loading -> {
+
+                }
+                is StateView.Success -> {
+                    castAdapter.submitList(stateView.data?.cast)
+                }
+                is StateView.Error -> {
+
+                }
+
+            }
+        }
+    }
+    private fun initRecyclerView() {
+        castAdapter = CastAdapter()
+
+        with(binding.rvCrew) {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
         }
     }
     private fun configData(movie: Movie?) {
@@ -81,9 +109,8 @@ class MovieDetailsFragment : Fragment() {
         binding.movieLang.text = movie?.originalLanguage?.uppercase() ?: "Não informado"
 
         val genres = movie?.genres?.joinToString(", ") { it.name } ?: "Não informado"
-        binding.movieGenreList.text = String.format(Locale.US, "Genre: $genres")
+        binding.movieGenreList.text = String.format(Locale.US, "Gêneros: $genres")
         binding.movieSinopse.text = movie?.overview ?: "Sinopse não disponível"
-
 
     }
 

@@ -79,6 +79,5 @@
     <string name="text_show_all_genre_item">Ver todos</string>
 
     <!-- MovieDetailsFragment -->
-    <string name="text_all_genres">Genre</string>
 
 </resources>

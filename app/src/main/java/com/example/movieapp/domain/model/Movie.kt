@@ -20,5 +20,5 @@ data class Movie(
     val voteAverage: Float?,
     val voteCount: Int?,
     val productionCountries: List<Country>?,
-    val genres: List<Genre>?
+    val genres: List<Genre>?,
 ): Parcelable

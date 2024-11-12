@@ -3,6 +3,7 @@ package com.example.movieapp.data.model.movie
 import android.os.Parcelable
 import com.example.movieapp.data.model.countries.CountryResponse
 import com.example.movieapp.data.model.genre.GetGenre
+import com.example.movieapp.data.model.movie_credits.GetCredit
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -54,5 +55,5 @@ data class GetMovie(
     val productionCountries: List<CountryResponse>?,
 
     @SerializedName("genres")
-    val genres: List<GetGenre>?
+    val genres: List<GetGenre>?,
 )
