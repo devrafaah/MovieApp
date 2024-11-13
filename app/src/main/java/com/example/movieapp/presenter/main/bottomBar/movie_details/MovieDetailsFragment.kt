@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,13 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
 import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.presenter.main.bottomBar.movie_details.adapter.CastAdapter
+import com.example.movieapp.presenter.main.bottomBar.movie_details.adapter.ViewPagerAdapter
+import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.comments.CommentsFragment
+import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.similar.SimilarFragment
+import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.trailers.TrailersFragment
 import com.example.movieapp.util.StateView
 import com.example.movieapp.util.initToolbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -27,7 +33,7 @@ class MovieDetailsFragment : Fragment() {
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 
-    private val viewModel: MovieDetailsViewModel by viewModels()
+    private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var castAdapter: CastAdapter
 
     override fun onCreateView(
@@ -47,6 +53,7 @@ class MovieDetailsFragment : Fragment() {
         getMovieDetails()
         getCredits()
         initRecyclerView()
+        configTabLayout()
     }
 
 
@@ -90,6 +97,30 @@ class MovieDetailsFragment : Fragment() {
             adapter = castAdapter
         }
     }
+    private fun configTabLayout() {
+        viewModel.setMovieId(movieId = args.movieId)
+        val adapter = ViewPagerAdapter(requireActivity())
+        binding.viewPager.adapter = adapter
+
+        adapter.addFragment(
+            fragment = TrailersFragment(),
+            title = R.string.title_trailerFragment
+        )
+        adapter.addFragment(
+            fragment = SimilarFragment(),
+            title = R.string.title_SimilarFragment
+        )
+        adapter.addFragment(
+            fragment = CommentsFragment(),
+            title = R.string.title_CommentsFragment
+        )
+
+        binding.viewPager.offscreenPageLimit = adapter.itemCount
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = getString(adapter.getTitle(position))
+        }.attach()
+    }
     private fun configData(movie: Movie?) {
         Glide
             .with(requireContext())
@@ -113,7 +144,6 @@ class MovieDetailsFragment : Fragment() {
         binding.movieSinopse.text = movie?.overview ?: "Sinopse não disponível"
 
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

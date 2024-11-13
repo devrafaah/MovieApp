@@ -36,5 +36,17 @@ import javax.inject.Inject
          )
      }
 
+     override suspend fun getMovieSimilar(
+         apiKey: String,
+         language: String?,
+         movieId: Int?
+     ): List<GetMovie> {
+         return serviceApi.getMovieSimilar(
+             apiKey = apiKey,
+             language = language,
+             movieId = movieId
+         ).results ?: emptyList()
+     }
+
 
  }

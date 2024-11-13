@@ -23,15 +23,12 @@ interface ServiceApi {
         @Query("with_genres") genreId: Int?,
     ) : BasePaginationRemote<List<GetMovie>>
 
-
-
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
         @Query("query") query: String?,
     ) : BasePaginationRemote<List<GetMovie>>
-
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
@@ -40,7 +37,6 @@ interface ServiceApi {
         @Query("language") language: String?,
     ) : GetMovie
 
-
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
         @Path("movie_id") movieId: Int?,
@@ -48,8 +44,10 @@ interface ServiceApi {
         @Query("language") language: String?,
     ) : GetCredit
 
-
-
-
-
+    @GET("movie/{movie_id}/similar")
+    suspend fun getMovieSimilar(
+        @Path("movie_id") movieId: Int?,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?,
+    ) : BasePaginationRemote<List<GetMovie>>
 }

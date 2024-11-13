@@ -1,5 +1,7 @@
 package com.example.movieapp.presenter.main.bottomBar.movie_details
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.movieapp.BuildConfig
@@ -18,6 +20,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val movieDetailsUseCase: GetMovieDetailsUseCase,
     private val movieCreditsUseCase: GetMovieCreditsUseCase
 ) : ViewModel(){
+
+    private val _movieId = MutableLiveData<Int>()
+    val movieId: LiveData<Int> = _movieId
 
     fun getMovieDetails(movieId: Int?) = liveData(Dispatchers.IO) {
         try {
@@ -65,5 +70,9 @@ class MovieDetailsViewModel @Inject constructor(
             e.printStackTrace()
             emit(StateView.Error(e.message))
         }
+    }
+
+    fun setMovieId(movieId: Int) {
+        _movieId.value = movieId
     }
 }

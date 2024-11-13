@@ -72,12 +72,21 @@
     <string name="strong_password_register_fragment">Insira uma senha mais forte.</string>
 
     <!-- MovieGenreFragment -->
-    <string name="search_hint">Search Something...</string>
+    <string name="search_hint">Search Something…</string>
 
 
     <!-- GenreItem-->
     <string name="text_show_all_genre_item">Ver todos</string>
 
     <!-- MovieDetailsFragment -->
+
+    <!-- TAB LAYOUT -->
+    <!-- TrailerFragment -->
+    <string name="title_trailerFragment">Trailers</string>
+    <!-- CommentsFragment -->
+    <string name="title_CommentsFragment">Comentarios</string>
+
+    <!-- SimilarFragment -->
+    <string name="title_SimilarFragment">Similares</string>
 
 </resources>
