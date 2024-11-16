@@ -19,6 +19,7 @@ import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.co
 import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.similar.SimilarFragment
 import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.trailers.TrailersFragment
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.ViewPager2ViewHeightAnimator
 import com.example.movieapp.util.initToolbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +49,7 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
     }
+
     private fun initListeners() {
         initToolbar(toolbar = binding.toolbar, lightIcon = true)
         getMovieDetails()
@@ -63,9 +65,11 @@ class MovieDetailsFragment : Fragment() {
                 is StateView.Loading -> {
 
                 }
+
                 is StateView.Success -> {
                     configData(stateView.data)
                 }
+
                 is StateView.Error -> {
 
                 }
@@ -73,15 +77,18 @@ class MovieDetailsFragment : Fragment() {
             }
         }
     }
+
     private fun getCredits() {
         viewModel.getMovieCreditsDetails(args.movieId).observe(viewLifecycleOwner) { stateView ->
-            when(stateView) {
+            when (stateView) {
                 is StateView.Loading -> {
 
                 }
+
                 is StateView.Success -> {
                     castAdapter.submitList(stateView.data?.cast)
                 }
+
                 is StateView.Error -> {
 
                 }
@@ -89,17 +96,26 @@ class MovieDetailsFragment : Fragment() {
             }
         }
     }
+
     private fun initRecyclerView() {
         castAdapter = CastAdapter()
 
         with(binding.rvCrew) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = castAdapter
         }
     }
+
     private fun configTabLayout() {
         viewModel.setMovieId(movieId = args.movieId)
+
         val adapter = ViewPagerAdapter(requireActivity())
+        val mViewPager = ViewPager2ViewHeightAnimator()
+
+        mViewPager.viewPager2 = binding.viewPager
+        mViewPager.viewPager2?.adapter = adapter
+
         binding.viewPager.adapter = adapter
 
         adapter.addFragment(
@@ -117,10 +133,16 @@ class MovieDetailsFragment : Fragment() {
 
         binding.viewPager.offscreenPageLimit = adapter.itemCount
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = getString(adapter.getTitle(position))
-        }.attach()
+        mViewPager.viewPager2?.let { viewPager ->
+            TabLayoutMediator(
+                binding.tabLayout, viewPager
+            ) { tab, position ->
+                tab.text = getString(adapter.getTitle(position))
+            }.attach()
+        }
+
     }
+
     private fun configData(movie: Movie?) {
         Glide
             .with(requireContext())
@@ -128,14 +150,15 @@ class MovieDetailsFragment : Fragment() {
             .into(binding.moviePoster)
 
         binding.movieTitle.text = movie?.title
-        binding.movieVoteAverage.text = String.format(Locale.US, "%.1f" , movie?.voteAverage ?: 0.0)
+        binding.movieVoteAverage.text = String.format(Locale.US, "%.1f", movie?.voteAverage ?: 0.0)
         binding.movieReleaseDate.text = movie?.releaseDate?.split("-")?.get(0) ?: "não informado"
 
-        binding.movieProductionCountry.text = if (movie?.productionCountries?.isNotEmpty() == true) {
-            movie.productionCountries[0].name.toString()
-        } else {
-            "País não informado"
-        }
+        binding.movieProductionCountry.text =
+            if (movie?.productionCountries?.isNotEmpty() == true) {
+                movie.productionCountries[0].name.toString()
+            } else {
+                "País não informado"
+            }
 
         binding.movieLang.text = movie?.originalLanguage?.uppercase() ?: "Não informado"
 
@@ -149,7 +172,6 @@ class MovieDetailsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 
 }

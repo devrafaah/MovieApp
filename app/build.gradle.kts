@@ -7,8 +7,8 @@ plugins {
     id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.devtools.ksp")
 }
-
 android {
     namespace = "com.example.movieapp"
     compileSdk = 35
@@ -19,7 +19,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,16 +47,17 @@ android {
 }
 
 dependencies {
-
-    val splashscreen_version = "1.0.1"
-    val firebase_bom = "33.5.1"
-    val hilt = "2.51.1"
-    val navigation_ui = "2.8.3"
-    val lottie_animation = "6.5.0"
-    val view_model_live_data = "2.8.7"
-    val glider = "4.16.0"
-    val okhttp = "4.12.0"
-
+    val versionSplashScreen = "1.0.1"
+    val versionFirebaseBom = "33.5.1"
+    val versionHilt = "2.51.1"
+    val versionNavigation = "2.8.4"
+    val versionLottieAnimation = "6.5.0"
+    val versionViewmodelLiveData = "2.8.7"
+    val versionGlider = "4.16.0"
+    val versionOkhttp = "4.12.0"
+    val versionRetrofit2 = "2.11.0"
+    val versionSimpleSearchView = "0.2.1"
+    val versionRoom = "2.6.1"
 
 
     implementation("androidx.core:core-ktx:1.15.0")
@@ -69,50 +69,50 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
+
     // SimpleSearchView
-    implementation("com.github.Ferfalk:SimpleSearchView:0.2.1")
+    implementation("com.github.Ferfalk:SimpleSearchView:$versionSimpleSearchView")
 
     // Splash API
-    implementation("androidx.core:core-splashscreen:$splashscreen_version")
-    // firebase
-    implementation(platform("com.google.firebase:firebase-bom:$firebase_bom"))
-    // firebase authentication
+    implementation("androidx.core:core-splashscreen:$versionSplashScreen")
+
+    // firebase // firebase authentication // firebase realtime database // firebase storage
+    implementation(platform("com.google.firebase:firebase-bom:$versionFirebaseBom"))
     implementation("com.google.firebase:firebase-auth")
-    // firebase realtime database
     implementation("com.google.firebase:firebase-database")
-    // firebase storage
     implementation("com.google.firebase:firebase-storage")
+
     // hilt
-    implementation("com.google.dagger:hilt-android:$hilt")
-    kapt("com.google.dagger:hilt-android-compiler:$hilt")
+    implementation("com.google.dagger:hilt-android:$versionHilt")
+    kapt("com.google.dagger:hilt-android-compiler:$versionHilt")
+
     // Views/Fragments integration
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigation_ui")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigation_ui")
+    implementation("androidx.navigation:navigation-fragment-ktx:$versionNavigation")
+    implementation("androidx.navigation:navigation-ui-ktx:$versionNavigation")
+
     // lottieAnimation
-    implementation("com.airbnb.android:lottie:$lottie_animation")
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$view_model_live_data")
-    // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$view_model_live_data")
+    implementation("com.airbnb.android:lottie:$versionLottieAnimation")
+
+    // ViewModel / LiveData
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$versionViewmodelLiveData")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$versionViewmodelLiveData")
+
     //Glider
-    implementation("com.github.bumptech.glide:glide:$glider")
+    implementation("com.github.bumptech.glide:glide:$versionGlider")
 
-    // SimpleSearchView
-
-    // define a BOM and its version
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:$okhttp"))
-
-    // define any required OkHttp artifacts without version
+    // Okhttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$versionOkhttp"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
-
     //retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.retrofit2:retrofit:$versionRetrofit2")
+    implementation("com.squareup.retrofit2:converter-gson:$versionRetrofit2")
 
-
-
+    // room
+    implementation("androidx.room:room-runtime:$versionRoom")
+    ksp("androidx.room:room-compiler:$versionRoom")
+    implementation("androidx.room:room-ktx:$versionRoom")
 }
 kapt {
     correctErrorTypes = true

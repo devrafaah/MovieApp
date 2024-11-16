@@ -4,6 +4,7 @@ import com.example.movieapp.data.model.genre.GetGenres
 import com.example.movieapp.data.model.getBase.BasePaginationRemote
 import com.example.movieapp.data.model.movie.GetMovie
 import com.example.movieapp.data.model.movie_credits.GetCredit
+import com.example.movieapp.data.model.reviewMovie.GetReviewMovie
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,40 +15,47 @@ interface ServiceApi {
     suspend fun getGenres(
         @Query("api_key") apiKey: String,
         @Query("language") language: String = "pt-br",
-    ) : GetGenres
+    ): GetGenres
 
     @GET("discover/movie")
     suspend fun moviesByGenre(
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
         @Query("with_genres") genreId: Int?,
-    ) : BasePaginationRemote<List<GetMovie>>
+    ): BasePaginationRemote<List<GetMovie>>
 
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
         @Query("query") query: String?,
-    ) : BasePaginationRemote<List<GetMovie>>
+    ): BasePaginationRemote<List<GetMovie>>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int?,
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
-    ) : GetMovie
+    ): GetMovie
 
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
         @Path("movie_id") movieId: Int?,
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
-    ) : GetCredit
+    ): GetCredit
 
     @GET("movie/{movie_id}/similar")
     suspend fun getMovieSimilar(
         @Path("movie_id") movieId: Int?,
         @Query("api_key") apiKey: String,
         @Query("language") language: String?,
-    ) : BasePaginationRemote<List<GetMovie>>
+    ): BasePaginationRemote<List<GetMovie>>
+
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getMovieReviews(
+        @Path("movie_id") movieId: Int?,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String?,
+    ) : BasePaginationRemote<List<GetReviewMovie>>
 }

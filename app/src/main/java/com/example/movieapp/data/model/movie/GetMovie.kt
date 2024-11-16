@@ -56,4 +56,7 @@ data class GetMovie(
 
     @SerializedName("genres")
     val genres: List<GetGenre>?,
+
+    @SerializedName("runtime")
+    val runtime: Int?,
 )

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -72,9 +73,10 @@ class HomeFragment : Fragment() {
             viewModel.getMoviesGenres(genre.id).observe(viewLifecycleOwner) { stateView ->
                 when (stateView) {
                     is StateView.Loading -> {
-
+                        binding.progressBar.isVisible = true
                     }
                     is StateView.Success -> {
+                        binding.progressBar.isVisible = false
                         genreMutableList[index] = genre.copy(
                             movies = stateView.data?.take(5)
                         )
@@ -84,7 +86,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                     is StateView.Error -> {
-
+                        binding.progressBar.isVisible = false
                     }
                 }
             }

@@ -1,8 +1,10 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.data.local.repository.MovieLocalRepositoryImpl
 import com.example.movieapp.data.repository.auth.FirebaseAuthenticationImpl
 import com.example.movieapp.data.repository.movie.MovieDetailsRepositoryImpl
 import com.example.movieapp.data.repository.movie.MovieRepositoryImpl
+import com.example.movieapp.domain.local.repository.MovieLocalRepository
 import com.example.movieapp.domain.repository.auth.FirebaseAuthentication
 import com.example.movieapp.domain.repository.movie.MovieDetailsRepository
 import com.example.movieapp.domain.repository.movie.MovieRepository
@@ -31,4 +33,10 @@ abstract class DomainModule {
     abstract fun bindsMovieDetailsRepositoryImpl(
         movieDetailsRepositoryImpl: MovieDetailsRepositoryImpl
     ) : MovieDetailsRepository
+
+    @Binds
+    abstract fun bindsMovieLocalRepositoryImpl(
+        movieLocalRepositoryImpl: MovieLocalRepositoryImpl
+    ) : MovieLocalRepository
+
 }

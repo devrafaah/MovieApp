@@ -111,6 +111,7 @@ class MovieGenreFragment : Fragment() {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search_view, menu);
         val item = menu.findItem(R.id.action_search)
@@ -122,8 +123,8 @@ class MovieGenreFragment : Fragment() {
         viewmodel.getMoviesGenres(args.genreId).observe(viewLifecycleOwner) { stateView ->
             when (stateView) {
                 is StateView.Loading -> {
-                    binding.progressBar.isVisible = true
                     binding.rvMovie.isVisible = false
+                    binding.progressBar.isVisible = true
                 }
 
                 is StateView.Success -> {

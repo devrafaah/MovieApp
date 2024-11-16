@@ -32,7 +32,7 @@ class MovieDetailsViewModel @Inject constructor(
 
             val movie = movieDetailsUseCase.invoke(
                 apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE,
+                language = Constants.Movie.LANGUAGE_PORTUGUESE,
                 movieId = movieId
             )
 
@@ -56,7 +56,7 @@ class MovieDetailsViewModel @Inject constructor(
 
             val creditsMovie = movieCreditsUseCase.invoke(
                 apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE,
+                language = Constants.Movie.LANGUAGE_PORTUGUESE,
                 movieId = movieId
             )
 

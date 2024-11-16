@@ -7,7 +7,7 @@
     <string name="title_menu_home">Início</string>
     <string name="title_menu_search">Pesquisar</string>
     <string name="title_menu_favorite">Favorite</string>
-    <string name="title_menu_download">Baixar</string>
+    <string name="title_menu_download">Downloads</string>
     <string name="title_menu_profile">Perfil</string>
 
     <!-- Fragment Onboarding XML -->
@@ -88,5 +88,10 @@
 
     <!-- SimilarFragment -->
     <string name="title_SimilarFragment">Similares</string>
+
+
+    <!--    SearchFragment-->
+    <string name="text_title_empty_search_fragment">Não encontrado</string>
+    <string name="text_message_empty_search_fragment">Desculpe, a palavra-chave que você digitou não foi encontrada. Tente verificar novamente ou pesquise com outras palavras-chave.</string>
 
 </resources>

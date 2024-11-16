@@ -3,10 +3,7 @@ package com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.s
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.movieapp.BuildConfig
-import com.example.movieapp.data.mapper.toPresentation
-import com.example.movieapp.domain.usecase.movie.GetGenresUseCase
 import com.example.movieapp.domain.usecase.movie.GetMovieSimilarUseCase
-import com.example.movieapp.domain.usecase.movie.GetMoviesByGenreUseCase
 import com.example.movieapp.util.Constants
 import com.example.movieapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +24,7 @@ class SimilarViewModel @Inject constructor(
             val movieSimilarList = similarUseCase.invoke(
                 movieId = movieId,
                 apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE,
+                language = Constants.Movie.LANGUAGE_PORTUGUESE,
             )
 
             emit(StateView.Success(movieSimilarList))

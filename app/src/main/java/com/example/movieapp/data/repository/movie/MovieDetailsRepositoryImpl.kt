@@ -4,6 +4,7 @@ import com.example.movieapp.data.api.ServiceApi
 import com.example.movieapp.data.model.genre.GetGenres
 import com.example.movieapp.data.model.movie.GetMovie
 import com.example.movieapp.data.model.movie_credits.GetCredit
+import com.example.movieapp.data.model.reviewMovie.GetReviewMovie
 import com.example.movieapp.domain.repository.movie.MovieDetailsRepository
 import com.example.movieapp.domain.repository.movie.MovieRepository
 import javax.inject.Inject
@@ -45,6 +46,18 @@ import javax.inject.Inject
              apiKey = apiKey,
              language = language,
              movieId = movieId
+         ).results ?: emptyList()
+     }
+
+     override suspend fun getMovieReviews(
+         movieId: Int?,
+         apiKey: String,
+         language: String?
+     ): List<GetReviewMovie> {
+         return serviceApi.getMovieReviews(
+             movieId = movieId,
+             apiKey = apiKey,
+             language = language
          ).results ?: emptyList()
      }
 

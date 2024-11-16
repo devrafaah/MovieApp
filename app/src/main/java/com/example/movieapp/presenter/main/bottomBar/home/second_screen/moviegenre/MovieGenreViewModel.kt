@@ -52,7 +52,7 @@ class MovieGenreViewModel @Inject constructor(
             val movies = getMoviesBySearchUseCase.invoke(
                 apiKey = BuildConfig.API_KEY,
                 query = query,
-                language = Constants.Movie.LANGUAGE
+                language = Constants.Movie.LANGUAGE_PORTUGUESE
             )
 
             emit(StateView.Success(movies))
