@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/onboardingFragment">
+    app:startDestination="@id/spashFragment">
 
     <fragment
         android:id="@+id/onboardingFragment"
@@ -28,7 +28,7 @@
                 app:destination="@id/loginFragment" />
             <action
                 android:id="@+id/action_homeAuthFragment_to_registerFragment"
-                app:destination="@id/registerFragment" />
+                app:destination="@id/registerFragment"/>
         </fragment>
         <fragment
             android:id="@+id/loginFragment"
@@ -50,4 +50,15 @@
             android:label="fragment_forgot"
             tools:layout="@layout/fragment_forgot" />
     </navigation>
+    <fragment
+        android:id="@+id/spashFragment"
+        android:name="com.example.movieapp.presenter.splash.SpashFragment"
+        android:label="fragment_spash"
+        tools:layout="@layout/fragment_spash" >
+        <action
+            android:id="@+id/action_spashFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/spashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

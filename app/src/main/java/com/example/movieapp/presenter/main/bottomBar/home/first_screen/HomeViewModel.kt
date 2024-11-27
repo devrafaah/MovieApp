@@ -1,15 +1,17 @@
 package com.example.movieapp.presenter.main.bottomBar.home.first_screen
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.movieapp.BuildConfig
-import com.example.movieapp.data.mapper.toPresentation
+import androidx.lifecycle.viewModelScope
+import com.example.movieapp.data.mapper.toDomain
+import com.example.movieapp.domain.model.Genre
 import com.example.movieapp.domain.usecase.movie.GetGenresUseCase
 import com.example.movieapp.domain.usecase.movie.GetMoviesByGenreUseCase
+import com.example.movieapp.presenter.model.MoviesByGenre
 import com.example.movieapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import retrofit2.HttpException
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,53 +20,56 @@ class HomeViewModel @Inject constructor(
     private val getMoviesByGenreUseCase: GetMoviesByGenreUseCase
 ) : ViewModel() {
 
-    fun getGenres() = liveData(Dispatchers.IO){
-        try{
+    private val _movieList = MutableLiveData<List<MoviesByGenre>>()
+    val movieList: LiveData<List<MoviesByGenre>>
+        get() = _movieList
 
-            emit(StateView.Loading())
+    private val _homeState = MutableLiveData<StateView<Unit>>()
+    val homeState: LiveData<StateView<Unit>>
+        get() = _homeState
 
-            val genres = getGenresUseCase.invoke(
-                apiKey = BuildConfig.API_KEY,
-                language = null
-            ).map {it.toPresentation()}
 
-            emit(StateView.Success(genres))
+    init {
+        getGenres()
+    }
 
+    private fun getGenres() {
+        viewModelScope.launch {
+            try {
+                _homeState.postValue(StateView.Loading())
+
+                val genres = getGenresUseCase.invoke()
+                getMoviesByGenre(genres)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _homeState.postValue(StateView.Error(e.message))
+            }
         }
-        catch (e : HttpException) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
 
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
+    }
+    private fun getMoviesByGenre(genres: List<Genre>) {
+        val moviesByGenre: MutableList<MoviesByGenre> = mutableListOf()
+        viewModelScope.launch {
+            genres.forEach { genre ->
+                try {
+                    val movies = getMoviesByGenreUseCase(genreId = genre.id)
+                    val movieByGenre = MoviesByGenre(
+                        id = genre.id,
+                        name = genre.name,
+                        movies = movies.map { it.toDomain() }.take(5)
+                    )
+                    moviesByGenre.add(movieByGenre)
+
+                    if(moviesByGenre.size == genres.size) {
+                        _movieList.postValue(moviesByGenre)
+                        _homeState.postValue(StateView.Success(Unit))
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _homeState.postValue(StateView.Error(e.message))
+                }
+            }
         }
     }
 
-
-    fun getMoviesGenres(genresId: Int?) = liveData(Dispatchers.IO){
-        try{
-
-            emit(StateView.Loading())
-
-            val movies = getMoviesByGenreUseCase.invoke(
-                genreId = genresId,
-                apiKey = BuildConfig.API_KEY,
-                language = null
-            )
-
-            emit(StateView.Success(movies))
-
-        }
-        catch (e : HttpException) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
-
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
-        }
-    }
 }

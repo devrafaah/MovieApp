@@ -38,8 +38,6 @@ class MovieLargeAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie = getItem(position)
 
-        holder.binding
-
         Glide
             .with(holder.itemView.context)
             .load("https://image.tmdb.org/t/p/w500/${movie.posterPath}")

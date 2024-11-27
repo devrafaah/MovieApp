@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.movieapp.BuildConfig
+import com.example.movieapp.domain.local.usecase.InsertMovieUseCase
+import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.domain.usecase.movie.GetMovieCreditsUseCase
 import com.example.movieapp.domain.usecase.movie.GetMovieDetailsUseCase
 import com.example.movieapp.util.Constants
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val movieDetailsUseCase: GetMovieDetailsUseCase,
-    private val movieCreditsUseCase: GetMovieCreditsUseCase
+    private val movieCreditsUseCase: GetMovieCreditsUseCase,
+    private val insertMovieUseCase: InsertMovieUseCase
 ) : ViewModel(){
 
     private val _movieId = MutableLiveData<Int>()
@@ -31,8 +34,6 @@ class MovieDetailsViewModel @Inject constructor(
 
 
             val movie = movieDetailsUseCase.invoke(
-                apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE_PORTUGUESE,
                 movieId = movieId
             )
 
@@ -52,20 +53,29 @@ class MovieDetailsViewModel @Inject constructor(
         try {
             emit(StateView.Loading())
 
-
-
             val creditsMovie = movieCreditsUseCase.invoke(
-                apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE_PORTUGUESE,
                 movieId = movieId
             )
-
 
             emit(StateView.Success(creditsMovie))
 
         } catch (e : HttpException) {
             e.printStackTrace()
             emit(StateView.Error(e.message))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(StateView.Error(e.message))
+        }
+    }
+
+    fun insertMovieLocal(movie: Movie) = liveData(Dispatchers.IO) {
+        try {
+            emit(StateView.Loading())
+
+            insertMovieUseCase(movie)
+
+            emit(StateView.Success(Unit))
+
         } catch (e: Exception) {
             e.printStackTrace()
             emit(StateView.Error(e.message))

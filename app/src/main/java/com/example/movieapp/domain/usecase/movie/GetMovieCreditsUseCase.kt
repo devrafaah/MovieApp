@@ -10,13 +10,9 @@ class GetMovieCreditsUseCase @Inject constructor(
     private val repository: MovieDetailsRepository,
 ) {
     suspend operator fun invoke(
-        apiKey: String,
-        language: String?,
         movieId: Int?
     ): Credit {
         return repository.getMovieCredits(
-            apiKey = apiKey,
-            language = language,
             movieId = movieId,
         ).toDomain()
     }

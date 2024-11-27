@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class GenrePresentation(
+data class MoviesByGenre(
     val id: Int?,
     val name: String?,
     val movies: List<Movie>?

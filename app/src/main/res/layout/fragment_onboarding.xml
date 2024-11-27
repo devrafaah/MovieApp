@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_onboarding_text_btn"
-        style="@style/ButtonDefault"
+        style="@style/ThemePrimaryButton"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"

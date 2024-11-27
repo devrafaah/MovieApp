@@ -1,22 +1,27 @@
 package com.example.movieapp.presenter.main.bottomBar.search
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import br.com.hellodev.movieapp.presenter.main.moviegenre.adapter.LoadStatePagingAdapter
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.MovieGenreFragmentDirections
-import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.adapter.MovieLargeAdapter
-import com.example.movieapp.util.StateView
+import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.adapter.PagingMovieDataAdapter
 import com.example.movieapp.util.hideKeyboard
+import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -27,7 +32,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewmodel: SearhViewModel by viewModels()
-    private lateinit var movieAdapter: MovieLargeAdapter
+    private lateinit var pagingMovieAdapter: PagingMovieDataAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,42 +48,86 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initListeners()
     }
 
     private fun initListeners() {
-        binding.progressBar.isVisible = false
         initRecycler()
         initSearchView()
-
-        initObserver()
     }
 
-    private fun initObserver() {
-        stateObserver()
-        getObserverBySearch()
-    }
 
     private fun initRecycler() {
-        movieAdapter = MovieLargeAdapter(
-            movieClickListener = { movieId ->
-                movieId?.let {
-                    val action = MovieGenreFragmentDirections.actionGlobalMovieDetailsFragment(movieId)
-                    findNavController().navigate(action)
+        pagingMovieAdapter = PagingMovieDataAdapter(movieClickListener = { movieId ->
+            movieId?.let {
+                val action =
+                    MovieGenreFragmentDirections.actionGlobalMovieDetailsFragment(movieId)
+                findNavController().navigateWithAnimations(action)
+            }
+        })
+        lifecycleScope.launch {
+            pagingMovieAdapter.loadStateFlow.collectLatest { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+
+                        binding.shimmer.startShimmer()
+                        binding.shimmer.isVisible = true
+                        binding.rvMovie.isVisible = false
+                    }
+
+                    is LoadState.NotLoading -> {
+
+                        binding.shimmer.stopShimmer()
+                        binding.shimmer.isVisible = false
+                        binding.rvMovie.isVisible = true
+
+
+                        emptyState(pagingMovieAdapter.itemCount == 0)
+
+                    }
+
+                    is LoadState.Error -> {
+                        binding.shimmer.stopShimmer()
+                        binding.shimmer.isVisible = false
+                        binding.rvMovie.isVisible = false
+                        val error = (loadState.refresh as LoadState.Error).error.message
+                            ?: "Ocorreu um erro tente novamente mais tarde"
+                        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-        )
+        }
         with(binding.rvMovie) {
-            layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
-            adapter = movieAdapter
+
+            val mGridLayout = GridLayoutManager(requireContext(), 2)
+            layoutManager = mGridLayout
+
+            val footerAdapter = pagingMovieAdapter.withLoadStateFooter(
+                footer = LoadStatePagingAdapter()
+            )
+            adapter = footerAdapter
+
+            mGridLayout.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (position == pagingMovieAdapter.itemCount && footerAdapter.itemCount > 0) {
+                        2
+                    } else {
+                        1
+                    }
+                }
+            }
         }
     }
+
     private fun initSearchView() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                viewmodel.getMoviesGenresBySearch(query)
                 hideKeyboard()
+                if (query.isNotEmpty()) {
+                    getMoviesBySearch(query)
+                }
                 return true
             }
 
@@ -87,35 +136,19 @@ class SearchFragment : Fragment() {
             }
         })
     }
-    private fun stateObserver() {
-        viewmodel.searchState.observe(viewLifecycleOwner) { stateView ->
-            when (stateView) {
-                is StateView.Loading -> {
-                    binding.rvMovie.isVisible = false
-                    binding.progressBar.isVisible = true
-                }
 
-                is StateView.Success -> {
-                    binding.progressBar.isVisible = false
-                    binding.rvMovie.isVisible = true
-                }
-
-                is StateView.Error -> {
-                    binding.progressBar.isVisible = false
-                }
+    private fun getMoviesBySearch(query: String?) {
+        lifecycleScope.launch {
+            viewmodel.getMoviesGenresBySearch(query).collectLatest { pagingData ->
+                pagingMovieAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
             }
         }
     }
 
-    private fun getObserverBySearch() {
-        viewmodel.movieList.observe(viewLifecycleOwner) { moviesList ->
-            binding.layoutEmpty.isVisible = moviesList.isEmpty()
-            binding.rvMovie.isVisible = moviesList.isNotEmpty()
-            movieAdapter.submitList(moviesList)
-        }
-
+    private fun emptyState(empty: Boolean) {
+        binding.rvMovie.isVisible = !empty
+        binding.layoutEmpty.isVisible = empty
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

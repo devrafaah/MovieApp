@@ -23,8 +23,6 @@ class SimilarViewModel @Inject constructor(
 
             val movieSimilarList = similarUseCase.invoke(
                 movieId = movieId,
-                apiKey = BuildConfig.API_KEY,
-                language = Constants.Movie.LANGUAGE_PORTUGUESE,
             )
 
             emit(StateView.Success(movieSimilarList))

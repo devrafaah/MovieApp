@@ -18,6 +18,7 @@ import com.example.movieapp.util.StateView
 import com.example.movieapp.util.hideKeyboard
 import com.example.movieapp.util.initToolbar
 import com.example.movieapp.util.isEmailValid
+import com.example.movieapp.util.navigateWithAnimations
 import com.example.movieapp.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,7 +54,7 @@ class LoginFragment : Fragment() {
             .into(binding.progressBarLoading);
 
         binding.loginForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgotFragment)
+            findNavController().navigateWithAnimations(R.id.action_loginFragment_to_forgotFragment)
         }
     }
 

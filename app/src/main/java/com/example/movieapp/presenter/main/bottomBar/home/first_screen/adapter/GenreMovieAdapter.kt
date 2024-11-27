@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.GenreItemBinding
-import com.example.movieapp.presenter.model.GenrePresentation
+import com.example.movieapp.presenter.model.MoviesByGenre
 
 class GenreMovieAdapter(
     private val showAllListener: (Int, String) -> Unit,
     private val movieClickListener: (Int?) -> Unit
-): ListAdapter<GenrePresentation, GenreMovieAdapter.MyViewHolder>(
+): ListAdapter<MoviesByGenre, GenreMovieAdapter.MyViewHolder>(
     DIFF_CALLBACK
 ){
 
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<GenrePresentation>(){
-            override fun areItemsTheSame(oldItem: GenrePresentation, newItem: GenrePresentation): Boolean {
+        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<MoviesByGenre>(){
+            override fun areItemsTheSame(oldItem: MoviesByGenre, newItem: MoviesByGenre): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: GenrePresentation, newItem: GenrePresentation): Boolean {
+            override fun areContentsTheSame(oldItem: MoviesByGenre, newItem: MoviesByGenre): Boolean {
                 return oldItem == newItem
             }
 

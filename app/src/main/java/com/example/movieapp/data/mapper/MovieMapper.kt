@@ -15,7 +15,7 @@ import com.example.movieapp.domain.model.Genre
 import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.domain.model.MovieCast
 import com.example.movieapp.domain.model.ReviewMovie
-import com.example.movieapp.presenter.model.GenrePresentation
+import com.example.movieapp.presenter.model.MoviesByGenre
 
 
 fun GetGenre.toDomain(): Genre {
@@ -44,14 +44,6 @@ fun GetMovie.toDomain(): Movie {
         productionCountries = productionCountries?.map { it.toDomain() },
         genres = genres?.map { it.toDomain() },
         runtime = runtime
-    )
-}
-
-fun Genre.toPresentation(): GenrePresentation {
-    return GenrePresentation(
-        id = id,
-        name = name,
-        movies = emptyList()
     )
 }
 

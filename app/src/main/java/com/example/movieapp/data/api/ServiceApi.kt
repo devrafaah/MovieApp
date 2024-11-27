@@ -12,50 +12,42 @@ import retrofit2.http.Query
 interface ServiceApi {
 
     @GET("genre/movie/list")
-    suspend fun getGenres(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String = "pt-br",
-    ): GetGenres
+    suspend fun getGenres(): GetGenres
 
     @GET("discover/movie")
-    suspend fun moviesByGenre(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
+    suspend fun getMoviesByGenrePagination(
+        @Query("with_genres") genreId: Int?,
+        @Query("page") page: Int?,
+    ): BasePaginationRemote<List<GetMovie>>
+
+    @GET("discover/movie")
+    suspend fun getMoviesByGenre(
         @Query("with_genres") genreId: Int?,
     ): BasePaginationRemote<List<GetMovie>>
 
     @GET("search/movie")
     suspend fun searchMovies(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
         @Query("query") query: String?,
+        @Query("page") page: Int?,
     ): BasePaginationRemote<List<GetMovie>>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int?,
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
     ): GetMovie
 
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(
         @Path("movie_id") movieId: Int?,
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
     ): GetCredit
 
     @GET("movie/{movie_id}/similar")
     suspend fun getMovieSimilar(
         @Path("movie_id") movieId: Int?,
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
     ): BasePaginationRemote<List<GetMovie>>
 
     @GET("movie/{movie_id}/reviews")
     suspend fun getMovieReviews(
         @Path("movie_id") movieId: Int?,
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String?,
     ) : BasePaginationRemote<List<GetReviewMovie>>
 }

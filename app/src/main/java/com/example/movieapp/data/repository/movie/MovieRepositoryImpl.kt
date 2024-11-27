@@ -1,8 +1,12 @@
 package com.example.movieapp.data.repository.movie
 
+import androidx.paging.PagingSource
 import com.example.movieapp.data.api.ServiceApi
 import com.example.movieapp.data.model.genre.GetGenres
+import com.example.movieapp.data.model.getBase.BasePaginationRemote
 import com.example.movieapp.data.model.movie.GetMovie
+import com.example.movieapp.data.paging.MovieByGenrePagingSource
+import com.example.movieapp.data.paging.SearchMoviePagingSource
 import com.example.movieapp.domain.repository.movie.MovieRepository
 import javax.inject.Inject
 
@@ -10,32 +14,23 @@ import javax.inject.Inject
     private val serviceApi : ServiceApi
 ) : MovieRepository {
 
-    override suspend fun getGenres(apiKey: String, language: String?): GetGenres {
-        return serviceApi.getGenres(
-            apiKey = apiKey,
-            language = "pt-br"
+    override suspend fun getGenres(): GetGenres {
+        return serviceApi.getGenres()
+    }
+    override fun getMoviesByGenrePagination( genreId: Int? ): PagingSource<Int, GetMovie> {
+        return MovieByGenrePagingSource(serviceApi, genreId)
+    }
+
+     override suspend fun getMoviesByGenre(genreId: Int?): BasePaginationRemote<List<GetMovie>> {
+         return serviceApi.getMoviesByGenre(genreId)
+     }
+
+
+     override fun getMoviesBySearch( query: String? ): PagingSource<Int, GetMovie> {
+        return SearchMoviePagingSource(
+            serviceApi = serviceApi,
+            query = query
         )
     }
-    override suspend fun getMoviesByGenre(apiKey: String, language: String?, genreId: Int?): List<GetMovie> {
-        return serviceApi.moviesByGenre(
-            apiKey = apiKey,
-            language = language,
-            genreId = genreId
-        ).results ?: emptyList()
-    }
-    override suspend fun getMoviesBySearch(apiKey: String, language: String?, query: String?, ): List<GetMovie> {
-        return serviceApi.searchMovies(
-            apiKey = apiKey,
-            language = language,
-            query = query,
-        ).results ?: emptyList()
-    }
-    override suspend fun getMoviesDetails(apiKey: String, language: String?, movieId: Int?): GetMovie {
-         return serviceApi.getMovieDetails(
-             apiKey = apiKey,
-             language = language,
-             movieId = movieId
-         )
-     }
 
  }

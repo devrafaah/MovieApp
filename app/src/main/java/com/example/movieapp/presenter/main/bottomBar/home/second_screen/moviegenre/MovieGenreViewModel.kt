@@ -1,72 +1,47 @@
 package com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.movieapp.BuildConfig
-import com.example.movieapp.domain.usecase.movie.GetMoviesByGenreUseCase
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.usecase.movie.GetMoviesByGenrePaginationUseCase
 import com.example.movieapp.domain.usecase.movie.GetMoviesBySearchUseCase
-import com.example.movieapp.util.Constants
-import com.example.movieapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import retrofit2.HttpException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MovieGenreViewModel @Inject constructor(
-    private val getMoviesByGenreUseCase: GetMoviesByGenreUseCase,
+    private val getMoviesByGenrePaginationUseCase: GetMoviesByGenrePaginationUseCase,
     private val getMoviesBySearchUseCase: GetMoviesBySearchUseCase
 ): ViewModel() {
 
-    fun getMoviesGenres(genresId: Int?) = liveData(Dispatchers.IO){
-        try{
+    private val _movieList = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
+    val movieList get() = _movieList.asStateFlow()
 
-            emit(StateView.Loading())
+    private var currentGenreId: Int? = null
 
-            val movies = getMoviesByGenreUseCase.invoke(
-                genreId = genresId,
-                apiKey = BuildConfig.API_KEY,
-                language = null
-            )
-
-            emit(StateView.Success(movies))
-
-        }
-        catch (e : HttpException) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
-
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
+    fun getMoviesByGenrePaginationUseCase(genreId: Int?, forceRequest: Boolean) = viewModelScope.launch{
+        if(genreId != currentGenreId || forceRequest) {
+            currentGenreId = genreId
+            getMoviesByGenrePaginationUseCase(
+                genreId = genreId
+            ).cachedIn(viewModelScope).collectLatest {
+                _movieList.emit(it)
+            }
         }
     }
 
-    fun getMoviesGenresBySearch(query: String?) = liveData(Dispatchers.IO){
-        try{
-
-            emit(StateView.Loading())
-
-            val movies = getMoviesBySearchUseCase.invoke(
-                apiKey = BuildConfig.API_KEY,
-                query = query,
-                language = Constants.Movie.LANGUAGE_PORTUGUESE
-            )
-
-            emit(StateView.Success(movies))
-
-        }
-        catch (e : HttpException) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
-
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
-        }
+    fun getMoviesGenresBySearch(query: String?): Flow<PagingData<Movie>> {
+        return getMoviesBySearchUseCase(
+            query = query
+        ).cachedIn(viewModelScope)
     }
 
 }

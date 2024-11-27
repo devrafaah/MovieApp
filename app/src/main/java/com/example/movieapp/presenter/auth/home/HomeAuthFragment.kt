@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentHomeAuthBinding
 import com.example.movieapp.databinding.FragmentOnboardingBinding
+import com.example.movieapp.util.navigateWithAnimations
 
 class HomeAuthFragment : Fragment() {
 
@@ -33,10 +34,10 @@ class HomeAuthFragment : Fragment() {
 
     private fun initListener() {
         binding.btnSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_homeAuthFragment_to_loginFragment)
+            findNavController().navigateWithAnimations(R.id.action_homeAuthFragment_to_loginFragment)
         }
         binding.btnSignUp.setOnClickListener {
-            findNavController().navigate(R.id.action_homeAuthFragment_to_registerFragment)
+            findNavController().navigateWithAnimations(R.id.action_homeAuthFragment_to_registerFragment)
         }
     }
 

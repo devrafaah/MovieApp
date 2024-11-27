@@ -11,6 +11,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentOnboardingBinding
 import com.example.movieapp.databinding.FragmentRegisterBinding
 import com.example.movieapp.presenter.auth.register.RegisterViewModel
+import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,7 @@ class OnboardingFragment : Fragment() {
 
     private fun initListener() {
         binding.btnStarted.setOnClickListener {
-            findNavController().navigate(R.id.action_onboardingFragment_to_authentication)
+            findNavController().navigateWithAnimations(R.id.action_onboardingFragment_to_authentication)
         }
     }
 

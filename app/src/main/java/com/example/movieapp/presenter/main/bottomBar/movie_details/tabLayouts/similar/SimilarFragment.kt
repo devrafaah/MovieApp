@@ -1,26 +1,20 @@
 package com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.similar
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.MainGraphDirections
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentSimilarBinding
-import com.example.movieapp.domain.model.Movie
-import com.example.movieapp.presenter.main.bottomBar.home.first_screen.adapter.MovieAdapter
 import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.adapter.MovieLargeAdapter
 import com.example.movieapp.presenter.main.bottomBar.movie_details.MovieDetailsViewModel
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -52,7 +46,6 @@ class SimilarFragment() : Fragment() {
 
     private fun initObserver() {
         movieDetailsViewModel.movieId.observe(viewLifecycleOwner) { movieId ->
-            Log.i("INFOTESTE", "initObserver: $movieId")
             getSimilar(movieId)
         }
     }
@@ -64,7 +57,6 @@ class SimilarFragment() : Fragment() {
 
                 }
                 is StateView.Success -> {
-                    Log.i("INFOTESTE", "getSimilar: ${stateView.data.toString()}")
                     movieLargeAdapter.submitList(stateView.data)
                 }
                 is StateView.Error -> {
@@ -80,7 +72,7 @@ class SimilarFragment() : Fragment() {
             movieClickListener = { movieId ->
                 movieId?.let {
                     val action = MainGraphDirections.actionGlobalMovieDetailsFragment(movieId)
-                    findNavController().navigate(action)
+                    findNavController().navigateWithAnimations(action)
                 }
             }
         )

@@ -1,18 +1,29 @@
 package com.example.movieapp.util
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.example.movieapp.R
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun Fragment.initToolbar(toolbar: Toolbar, showIconNavigation: Boolean = true, lightIcon: Boolean = false) {
+fun Fragment.initToolbar(
+    toolbar: Toolbar,
+    showIconNavigation: Boolean = true,
+    lightIcon: Boolean = false
+) {
     val iconBack = if(lightIcon) R.drawable.ic_back_white else R.drawable.ic_back
+
     (activity as AppCompatActivity).setSupportActionBar(toolbar)
     (activity as AppCompatActivity).title = ""
 
@@ -85,5 +96,66 @@ fun formatCommentDate(date: String?): String {
         }
     }
 }
+
+
+fun Double.calculateFileSize(): String {
+    val value = this * 10.0
+
+    return if (value >= 1000) {
+        String.format("%.2f GB", value / 1000)
+    } else {
+        String.format("%.1f MB", value)
+    }
+}
+
+fun Int.calculateMovieTime(): String {
+    val hours = this / 60
+    val minutes = this % 60
+    return "${hours}h ${minutes}m"
+}
+
+
+fun Context.circularProgressDrawable(): Drawable {
+    return CircularProgressDrawable(this).apply {
+        strokeWidth = 12f
+        centerRadius = 60f
+        setColorSchemeColors(
+            ContextCompat.getColor(
+                this@circularProgressDrawable,
+                R.color.color_default
+            )
+        )
+        start()
+    }
+}
+
+
+
+fun NavController.navigateWithAnimations(destinationId: Int) {
+    this.navigate(
+        destinationId,
+        null,
+        NavOptions.Builder()
+            .setEnterAnim(R.anim.enter)
+            .setExitAnim(R.anim.exit)
+            .setPopEnterAnim(R.anim.pop_enter)
+            .setPopExitAnim(R.anim.pop_exit)
+            .build(),
+    )
+}
+
+fun NavController.navigateWithAnimations(destinationId: NavDirections) {
+    this.navigate(
+        destinationId.actionId,
+        destinationId.arguments,
+        NavOptions.Builder()
+            .setEnterAnim(R.anim.enter)
+            .setExitAnim(R.anim.exit)
+            .setPopEnterAnim(R.anim.pop_enter)
+            .setPopExitAnim(R.anim.pop_exit)
+            .build(),
+    )
+}
+
 
 

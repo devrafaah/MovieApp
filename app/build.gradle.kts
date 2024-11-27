@@ -47,8 +47,9 @@ android {
 }
 
 dependencies {
+
     val versionSplashScreen = "1.0.1"
-    val versionFirebaseBom = "33.5.1"
+    val versionFirebaseBom = "33.6.0"
     val versionHilt = "2.51.1"
     val versionNavigation = "2.8.4"
     val versionLottieAnimation = "6.5.0"
@@ -58,6 +59,9 @@ dependencies {
     val versionRetrofit2 = "2.11.0"
     val versionSimpleSearchView = "0.2.1"
     val versionRoom = "2.6.1"
+    val versionPaging = "3.3.4"
+    val versionShimmer = "0.5.0"
+    val versionSwipeRefresh = "1.1.0"
 
 
     implementation("androidx.core:core-ktx:1.15.0")
@@ -84,7 +88,7 @@ dependencies {
 
     // hilt
     implementation("com.google.dagger:hilt-android:$versionHilt")
-    kapt("com.google.dagger:hilt-android-compiler:$versionHilt")
+    ksp("com.google.dagger:hilt-android-compiler:$versionHilt")
 
     // Views/Fragments integration
     implementation("androidx.navigation:navigation-fragment-ktx:$versionNavigation")
@@ -99,6 +103,7 @@ dependencies {
 
     //Glider
     implementation("com.github.bumptech.glide:glide:$versionGlider")
+    ksp("com.github.bumptech.glide:compiler:$versionGlider")
 
     // Okhttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:$versionOkhttp"))
@@ -111,9 +116,20 @@ dependencies {
 
     // room
     implementation("androidx.room:room-runtime:$versionRoom")
-    ksp("androidx.room:room-compiler:$versionRoom")
     implementation("androidx.room:room-ktx:$versionRoom")
-}
-kapt {
-    correctErrorTypes = true
+    ksp("androidx.room:room-compiler:$versionRoom")
+
+
+    // pagination
+    implementation("androidx.paging:paging-runtime-ktx:$versionPaging")
+
+
+    //https://github.com/facebookarchive/shimmer-android/issues/121
+    // Shimmer facebook
+    implementation("com.facebook.shimmer:shimmer:$versionShimmer")
+
+
+    // SwipeRefresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:$versionSwipeRefresh")
+
 }

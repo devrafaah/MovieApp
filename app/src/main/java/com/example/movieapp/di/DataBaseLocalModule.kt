@@ -2,7 +2,6 @@ package com.example.movieapp.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.movieapp.data.local.dao.MovieDao
 import com.example.movieapp.data.local.db.AppDataBase
 import com.example.movieapp.util.DBConstants
@@ -20,7 +19,7 @@ class DataBaseLocalModule {
     @Provides
     fun providesDataBase(
         @ApplicationContext context: Context
-    ) : RoomDatabase = Room.databaseBuilder(
+    ) : AppDataBase = Room.databaseBuilder(
         context = context,
         klass = AppDataBase::class.java,
         name = DBConstants.MOVIE_DATABASE

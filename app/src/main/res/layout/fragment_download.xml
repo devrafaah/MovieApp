@@ -30,7 +30,8 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/logo"/>
+                    android:src="@drawable/logo"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,15 +42,15 @@
                     android:text="@string/title_menu_download"
                     android:textColor="#212121"/>
 
+
             </androidx.appcompat.widget.Toolbar>
-
-
 
             <com.ferfalk.simplesearchview.SimpleSearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:theme="@style/SearchViewTheme" />
+
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -58,10 +59,51 @@
         android:id="@+id/rv_movie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
+        tools:itemCount="3"
         tools:listitem="@layout/movie_download_item" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="65dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="TODO"
+            android:src="@drawable/placeholder_empty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="32dp"
+            android:fontFamily="@font/urbanist_700"
+            android:text="Lista Vazia"
+            android:textAlignment="center"
+            android:textColor="@color/color_default"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/urbanist_500"
+            android:text="Faça download do seu filme favorito para ser salvo aqui!!"
+            android:textAlignment="center"
+            android:textColor="#424242" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

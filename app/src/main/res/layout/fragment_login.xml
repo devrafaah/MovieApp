@@ -83,7 +83,7 @@
 
         <Button
             android:id="@+id/login_btn"
-            style="@style/ButtonDefault"
+            style="@style/ThemePrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -102,10 +102,10 @@
             android:layout_marginVertical="10dp"
             android:contentDescription="@string/todo"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
             tools:src="@drawable/loading"
             tools:visibility="visible" />
 
@@ -161,11 +161,11 @@
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:gravity="center"
+            android:layout_marginVertical="20dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarLoading"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarLoading"
             tools:layout_editor_absoluteX="0dp">
 
             <ImageView

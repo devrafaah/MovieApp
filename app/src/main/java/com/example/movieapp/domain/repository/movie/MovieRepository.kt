@@ -1,28 +1,18 @@
 package com.example.movieapp.domain.repository.movie
 
+import androidx.paging.PagingSource
 import com.example.movieapp.data.model.genre.GetGenres
+import com.example.movieapp.data.model.getBase.BasePaginationRemote
 import com.example.movieapp.data.model.movie.GetMovie
 
 interface MovieRepository {
 
-    suspend fun getGenres(apiKey: String, language: String?) : GetGenres
-
-    suspend fun getMoviesByGenre(
-        apiKey: String,
-        language: String?,
-        genreId: Int?,
-    ) : List<GetMovie>
 
 
-    suspend fun getMoviesBySearch(
-        apiKey: String,
-        language: String?,
-        query: String?,
-    ) : List<GetMovie>
+    suspend fun getGenres() : GetGenres
 
-    suspend fun getMoviesDetails(
-        apiKey: String,
-        language: String?,
-        movieId: Int?
-    ) : GetMovie
+    fun getMoviesByGenrePagination(genreId: Int?) : PagingSource<Int, GetMovie>
+    suspend fun getMoviesByGenre(genreId: Int?) : BasePaginationRemote<List<GetMovie>>
+
+    fun getMoviesBySearch(query: String?) : PagingSource<Int, GetMovie>
 }

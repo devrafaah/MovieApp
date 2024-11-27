@@ -48,7 +48,6 @@ class CommentsFragment : Fragment() {
     }
     private fun initObserver() {
         movieDetailsViewModel.movieId.observe(viewLifecycleOwner) { movieId ->
-            Log.i("INFOTESTE", "initObserver: $movieId")
             getReviewsComments(movieId)
         }
     }
