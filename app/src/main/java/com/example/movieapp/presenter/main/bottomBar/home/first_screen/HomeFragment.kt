@@ -7,18 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.MainGraphDirections
 import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.presenter.main.bottomBar.home.first_screen.adapter.GenreMovieAdapter
-import com.example.movieapp.presenter.model.MoviesByGenre
 import com.example.movieapp.util.StateView
 import com.example.movieapp.util.applyScreenWindowInsets
 import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint

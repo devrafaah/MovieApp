@@ -2,9 +2,7 @@ package com.example.movieapp.presenter.main.bottomBar.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.movieapp.domain.model.user.User
 import com.example.movieapp.domain.usecase.user.GetUserUseCase
-import com.example.movieapp.domain.usecase.user.UserUpdateUseCase
 import com.example.movieapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
