@@ -166,10 +166,10 @@
                 android:id="@+id/progressBarLoading"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:contentDescription="TODO"
                 android:visibility="invisible"
                 tools:src="@drawable/loading"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:ignore="ContentDescription" />
 
 
 
