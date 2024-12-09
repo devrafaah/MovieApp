@@ -201,7 +201,7 @@ class DownloadFragment : Fragment() {
         inflater.inflate(R.menu.menu_search_view, menu)
         val item = menu.findItem(R.id.action_search)
         binding.searchView.setMenuItem(item)
-        super.onCreateOptionsMenu(menu, inflater)
+        super. onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {
