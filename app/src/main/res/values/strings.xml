@@ -70,6 +70,7 @@
     <string name="invalid_password_register_fragment">Senha inválida, tente novamente.</string>
     <string name="email_in_use_register_fragment">Este e-mail já está em uso.</string>
     <string name="strong_password_register_fragment">Insira uma senha mais forte.</string>
+    <string name="error_user_not_found">Usuario não encontrado !</string>
 
     <!-- MovieGenreFragment -->
     <string name="search_hint">Search Something…</string>
@@ -108,4 +109,45 @@
     <string name="text_delete_answer_bottom_sheet">Você tem certeza que deseja excluir o download desse filme?</string>
     <string name="text_cancel_movie_bottom_sheet">Cancelar</string>
     <string name="text_title_movie_bottom_sheet">Deletar</string>
+
+
+    <!--    ProfileFragment-->
+    <string name="text_edit_profile_profile_fragment">Editar perfil</string>
+    <string name="text_notification_profile_fragment">Notificações</string>
+    <string name="text_download_profile_fragment">Downloads</string>
+    <string name="text_security_profile_fragment">Segurança</string>
+    <string name="text_language_profile_fragment">Idioma</string>
+    <string name="text_darkmode_profile_fragment">Modo Escuro</string>
+    <string name="text_helper_center_profile_fragment">Centro de ajuda</string>
+    <string name="text_privacy_policy_profile_fragment">Política de privacidade</string>
+    <string name="text_logout_profile_fragment">Sair</string>
+
+
+    <!-- BottomSheet Logout -->
+    <string name="text_title_bottom_sheet_sheet_logout">Sair</string>
+    <string name="text_message_bottom_sheet_logout">Tem certeza que deseja sair?</string>
+    <string name="text_cancel_bottom_sheet_logout">Cancelar</string>
+    <string name="text_confirm_bottom_sheet_logout">Sim, sair</string>
+
+
+    <!-- EditProfile  XML-->
+    <string name="fragment_edit_text_editarPerfil">Editar Perfil</string>
+    <string name="fragment_edit_text_atualizar">Atualizar</string>
+    <string name="fragment_edit_text_firstName">primeiro novo</string>
+    <string name="fragment_edit_text_secondName">sobrenome</string>
+    <string name="fragment_edit_text_phone">telefone</string>
+    <string name="fragment_edit_text_pais">pais</string>
+    <string name="fragment_edit_text_genre">gênero</string>
+
+    <!-- EdiProfile Fragment-->
+    <string name="fill_all_fields">Todos os campos precisam ser preenchidos.</string>
+    <string name="fragment_edit_text_success">Atualizado com sucesso</string>
+
+
+    <!-- Bottom sheet config Permition -->
+    <string name="text_title_bottom_sheet_permition_denied">Permissão negada</string>
+    <string name="text_title_bottom_sheet_permition_active">Para acessar o recurso ative a permissão nas configurações</string>
+    <string name="text_title_bottom_sheet_permition_cancel">Cancelar</string>
+    <string name="text_title_bottom_sheet_permition_accept">Aceitar</string>
+
 </resources>

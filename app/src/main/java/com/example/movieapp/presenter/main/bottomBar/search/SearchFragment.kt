@@ -17,6 +17,7 @@ import br.com.hellodev.movieapp.presenter.main.moviegenre.adapter.LoadStatePagin
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.MovieGenreFragmentDirections
 import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.adapter.PagingMovieDataAdapter
+import com.example.movieapp.util.applyScreenWindowInsets
 import com.example.movieapp.util.hideKeyboard
 import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +27,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        applyScreenWindowInsets(view = view, applyBottom = false)
         initListeners()
     }
 

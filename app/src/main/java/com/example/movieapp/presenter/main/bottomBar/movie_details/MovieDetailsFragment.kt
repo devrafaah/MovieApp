@@ -2,8 +2,6 @@ package com.example.movieapp.presenter.main.bottomBar.movie_details
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.DialogDownloadingBinding
 import com.example.movieapp.databinding.FragmentMovieDetailsBinding
-import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.movie.Movie
 import com.example.movieapp.presenter.main.bottomBar.movie_details.adapter.CastAdapter
 import com.example.movieapp.presenter.main.bottomBar.movie_details.adapter.ViewPagerAdapter
 import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.comments.CommentsFragment
@@ -228,7 +226,7 @@ class MovieDetailsFragment : Fragment() {
     private fun configData() {
         Glide
             .with(requireContext())
-            .load("https://image.tmdb.org/t/p/w500${movie.backdropPath}")
+            .load("https://image.tmdb.org/t/p/original${movie.backdropPath}")
             .into(binding.moviePoster)
 
         binding.movieTitle.text = movie.title

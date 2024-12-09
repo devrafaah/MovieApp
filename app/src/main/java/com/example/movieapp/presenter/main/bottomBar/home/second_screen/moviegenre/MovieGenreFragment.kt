@@ -28,7 +28,7 @@ import com.ferfalk.simplesearchview.SimpleSearchView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
+import com.example.movieapp.util.applyScreenWindowInsets
 
 @AndroidEntryPoint
 class MovieGenreFragment : Fragment() {
@@ -59,6 +59,7 @@ class MovieGenreFragment : Fragment() {
         initToolbar(toolbar = binding.toolbar)
         initRecycler()
         binding.toolbar.title = args.genreName
+        applyScreenWindowInsets(view = view, applyBottom = false)
         initSearchView()
         getMoviesByGenrePagination()
     }

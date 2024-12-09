@@ -8,14 +8,13 @@ import com.example.movieapp.data.model.movie_credits.GetCredit
 import com.example.movieapp.data.model.movie_credits.GetMovieCast
 import com.example.movieapp.data.model.reviewMovie.GetAuthorDetails
 import com.example.movieapp.data.model.reviewMovie.GetReviewMovie
-import com.example.movieapp.domain.model.AuthorDetails
-import com.example.movieapp.domain.model.Country
-import com.example.movieapp.domain.model.Credit
-import com.example.movieapp.domain.model.Genre
-import com.example.movieapp.domain.model.Movie
-import com.example.movieapp.domain.model.MovieCast
-import com.example.movieapp.domain.model.ReviewMovie
-import com.example.movieapp.presenter.model.MoviesByGenre
+import com.example.movieapp.domain.model.movie.AuthorDetails
+import com.example.movieapp.domain.model.movie.Country
+import com.example.movieapp.domain.model.movie.Credit
+import com.example.movieapp.domain.model.movie.Genre
+import com.example.movieapp.domain.model.movie.Movie
+import com.example.movieapp.domain.model.movie.MovieCast
+import com.example.movieapp.domain.model.movie.ReviewMovie
 
 
 fun GetGenre.toDomain(): Genre {

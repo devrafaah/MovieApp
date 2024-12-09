@@ -13,6 +13,7 @@ import com.example.movieapp.databinding.FragmentCommentsBinding
 import com.example.movieapp.presenter.main.bottomBar.movie_details.MovieDetailsViewModel
 import com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.adapter.CommentReviewAdapter
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.applyScreenWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -38,6 +39,7 @@ class CommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        applyScreenWindowInsets(view = view, applyTop = false)
         initListeners()
     }
 
@@ -67,6 +69,7 @@ class CommentsFragment : Fragment() {
                 }
                 is StateView.Success -> {
                     commentAdapter.submitList(stateView.data)
+                    Log.i("comentarios", "getReviewsComments: ${stateView.data}")
                 }
                 is StateView.Error -> {
 

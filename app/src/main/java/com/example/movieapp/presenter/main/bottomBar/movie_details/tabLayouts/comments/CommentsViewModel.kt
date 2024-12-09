@@ -1,10 +1,9 @@
 package com.example.movieapp.presenter.main.bottomBar.movie_details.tabLayouts.comments
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.movieapp.BuildConfig
 import com.example.movieapp.domain.usecase.movie.GetMovieReviewsUseCase
-import com.example.movieapp.util.Constants
 import com.example.movieapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,11 +20,11 @@ class CommentsViewModel  @Inject constructor(
         try{
 
             emit(StateView.Loading())
-
+            Log.i("comentarios", "getCommentsReviews: $movieId")
             val movieCommentsReviewList = getMovieReviewsUseCase.invoke(
                 movieId = movieId,
             )
-
+            Log.i("comentarios", "getCommentsReviews: ${movieCommentsReviewList.size}")
             emit(StateView.Success(movieCommentsReviewList))
         }
         catch (e : HttpException) {

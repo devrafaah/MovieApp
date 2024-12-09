@@ -14,6 +14,7 @@ import com.example.movieapp.databinding.FragmentSimilarBinding
 import com.example.movieapp.presenter.main.bottomBar.home.second_screen.moviegenre.adapter.MovieLargeAdapter
 import com.example.movieapp.presenter.main.bottomBar.movie_details.MovieDetailsViewModel
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.applyComponentWindowInsets
 import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,7 @@ class SimilarFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        applyComponentWindowInsets(view = binding.rvMovieSimilar)
         initListeners()
     }
 

@@ -1,0 +1,72 @@
+package com.example.movieapp.domain.model.menu
+
+import com.example.movieapp.R
+
+data class MenuProfile(
+    val name: Int,
+    val icon: Int,
+    val type: MenuProfileType
+) {
+    companion object {
+        val menuOptions = listOf(
+            MenuProfile(
+                name = R.string.text_edit_profile_profile_fragment,
+                icon = R.drawable.ic_profile,
+                type = MenuProfileType.PROFILE
+            ),
+            MenuProfile(
+                name = R.string.text_notification_profile_fragment,
+                icon = R.drawable.ic_notification,
+                type = MenuProfileType.NOTIFICATION
+            ),
+            MenuProfile(
+                name = R.string.text_download_profile_fragment,
+                icon = R.drawable.ic_download_profile,
+                type = MenuProfileType.DOWNLOAD
+            ),
+            MenuProfile(
+                name = R.string.text_security_profile_fragment,
+                icon = R.drawable.ic_security,
+                type = MenuProfileType.SECURITY
+            ),
+            MenuProfile(
+                name = R.string.text_language_profile_fragment,
+                icon = R.drawable.ic_language,
+                type = MenuProfileType.LANGUAGE
+            ),
+            MenuProfile(
+                name = R.string.text_darkmode_profile_fragment,
+                icon = R.drawable.ic_dark_mode,
+                type = MenuProfileType.DARK_MODE
+            ),
+            MenuProfile(
+                name = R.string.text_helper_center_profile_fragment,
+                icon = R.drawable.ic_info,
+                type = MenuProfileType.HELPER
+            ),
+            MenuProfile(
+                name = R.string.text_privacy_policy_profile_fragment,
+                icon = R.drawable.ic_info,
+                type = MenuProfileType.PRIVACY_POLICE
+            ),
+            MenuProfile(
+                name = R.string.text_logout_profile_fragment,
+                icon = R.drawable.logout,
+                type = MenuProfileType.LOGOUT
+            )
+        )
+    }
+}
+
+
+enum class MenuProfileType{
+    PROFILE,
+    NOTIFICATION,
+    DOWNLOAD,
+    SECURITY,
+    LANGUAGE,
+    DARK_MODE,
+    HELPER,
+    PRIVACY_POLICE,
+    LOGOUT
+}

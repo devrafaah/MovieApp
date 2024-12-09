@@ -32,6 +32,9 @@ class FirebaseHelper {
                 error.contains("Password should be at least 6 characters") -> {
                     R.string.strong_password_register_fragment
                 }
+                error.contains("Usuario Não Encontrado") -> {
+                    R.string.error_user_not_found
+                }
                 else -> {
                     R.string.error_generic
                 }

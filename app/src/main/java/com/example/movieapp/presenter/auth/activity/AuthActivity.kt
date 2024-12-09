@@ -9,8 +9,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ActivityAuthBinding
+import com.example.movieapp.presenter.auth.enums.AuthenticationDestinations
 import com.example.movieapp.presenter.main.activity.MainActivity
 import com.example.movieapp.util.FirebaseHelper
+import com.example.movieapp.util.getSerializableCompat
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,12 +38,16 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navCOntroller = navHostFragment.navController
 
+        val graph = navCOntroller.navInflater.inflate(R.navigation.nav_graph)
+        graph.setStartDestination(getDestination())
+        navCOntroller.graph = graph
+
         navCOntroller.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id != R.id.onboardingFragment){
+            if (destination.id != R.id.onboardingFragment) {
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
@@ -56,9 +62,28 @@ class AuthActivity : AppCompatActivity() {
 
 
     private fun isAuthenticated() {
-        if(FirebaseHelper.isAuthenticated()){
+        if (FirebaseHelper.isAuthenticated()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
+
+    private fun getDestination(): Int {
+        val destination =
+            intent.getSerializableCompat<AuthenticationDestinations>(AUTHENTICATION_PARAMETER)
+
+        return when(destination) {
+            AuthenticationDestinations.SPLASH_SCREEN -> {
+                R.id.spashFragment
+            }
+            else -> {
+                R.id.authentication
+            }
+        }
+
+    }
+
+    companion object {
+        const val AUTHENTICATION_PARAMETER = "AUTHENTICATION_PARAMETER"
     }
 }

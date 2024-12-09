@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="#F75555"
+        android:fontFamily="@font/urbanist_700"
+        android:text="@string/text_title_bottom_sheet_permition_denied"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/urbanist_700"
+        android:text="@string/text_title_bottom_sheet_permition_active"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:paddingHorizontal="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_aceitar_permition_config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_details_full"
+            android:fontFamily="@font/urbanist_600"
+            android:text="Aceitar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancelar_permition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_details"
+            android:fontFamily="@font/urbanist_600"
+            android:text="Cancelar"
+            android:textColor="@color/color_default"
+            android:textSize="16sp"
+            app:backgroundTint="@null" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

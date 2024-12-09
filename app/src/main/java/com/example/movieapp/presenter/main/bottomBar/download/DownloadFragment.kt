@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -19,8 +18,9 @@ import com.example.movieapp.MainGraphDirections
 import com.example.movieapp.R
 import com.example.movieapp.databinding.BottomSheetDeleteMovieBinding
 import com.example.movieapp.databinding.FragmentDownloadBinding
-import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.movie.Movie
 import com.example.movieapp.presenter.main.bottomBar.download.adapter.DownloadMovieAdapter
+import com.example.movieapp.util.applyScreenWindowInsets
 import com.example.movieapp.util.calculateFileSize
 import com.example.movieapp.util.calculateMovieTime
 import com.example.movieapp.util.initToolbar
@@ -28,9 +28,6 @@ import com.example.movieapp.util.navigateWithAnimations
 import com.ferfalk.simplesearchview.SimpleSearchView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DownloadFragment : Fragment() {
@@ -59,6 +56,8 @@ class DownloadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(toolbar = binding.toolbar, showIconNavigation = false)
+
+        applyScreenWindowInsets(view = view, applyBottom = false)
 
         initRecycler()
 

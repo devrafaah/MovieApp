@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presenter.main.bottomBar.profile.edit.EditProfileFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="@string/fragment_edit_text_editarPerfil"
+            android:fontFamily="@font/urbanist_700"
+            android:textColor="#212121"
+            android:textSize="24sp"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/btn_profile_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:elevation="2dp"
+                    android:src="@drawable/ic_edit"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="60dp"
+                    app:cardElevation="1dp">
+
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription"
+                        tools:src="@drawable/person_placeholder" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </FrameLayout>
+
+
+            <EditText
+                android:id="@+id/edit_first_name"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginHorizontal="24dp"
+                android:autofillHints=""
+                android:drawablePadding="12dp"
+                android:hint="@string/fragment_edit_text_firstName"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/edit_last_name"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:autofillHints=""
+                android:drawablePadding="12dp"
+                android:hint="@string/fragment_edit_text_secondName"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/edit_gmail"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:autofillHints=""
+                android:clickable="false"
+                android:enabled="false"
+                android:drawablePadding="12dp"
+                tools:text="u1@gmail.com"
+                android:textColor="@color/disabled"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/edit_phone"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:autofillHints=""
+                android:drawablePadding="12dp"
+                android:hint="@string/fragment_edit_text_phone"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/edit_sex"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:autofillHints=""
+                android:drawablePadding="12dp"
+                android:hint="@string/fragment_edit_text_genre"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edit_country"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="15dp"
+                android:autofillHints=""
+                android:drawablePadding="12dp"
+                android:hint="@string/fragment_edit_text_pais"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btn_atualizar"
+                style="@style/ThemePrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/fragment_edit_text_atualizar" />
+
+            <ImageView
+                android:id="@+id/progressBarLoading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="TODO"
+                android:visibility="invisible"
+                tools:src="@drawable/loading"
+                tools:visibility="visible" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

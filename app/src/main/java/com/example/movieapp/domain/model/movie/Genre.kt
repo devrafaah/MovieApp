@@ -1,7 +1,6 @@
-package com.example.movieapp.domain.model
+package com.example.movieapp.domain.model.movie
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 

@@ -14,6 +14,7 @@ import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.presenter.main.bottomBar.home.first_screen.adapter.GenreMovieAdapter
 import com.example.movieapp.presenter.model.MoviesByGenre
 import com.example.movieapp.util.StateView
+import com.example.movieapp.util.applyScreenWindowInsets
 import com.example.movieapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        applyScreenWindowInsets(view = view, applyBottom = false)
 
         initRecycler()
         initObservers()

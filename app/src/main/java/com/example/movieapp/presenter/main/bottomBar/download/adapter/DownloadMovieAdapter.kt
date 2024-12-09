@@ -10,7 +10,7 @@ import com.example.movieapp.databinding.MovieDownloadItemBinding
 import com.example.movieapp.util.calculateFileSize
 import com.example.movieapp.util.calculateMovieTime
 import com.bumptech.glide.Glide
-import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.movie.Movie
 
 class DownloadMovieAdapter(
     private val context: Context,
