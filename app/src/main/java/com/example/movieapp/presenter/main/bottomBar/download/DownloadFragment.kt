@@ -73,7 +73,6 @@ class DownloadFragment : Fragment() {
 
     private fun initObserverMovieList() {
         viewModel.movieList.observe(viewLifecycleOwner) { movies ->
-            Log.i("INFOTESTE", "MOVIE OBSERVER getMovies() === Movies: ${movies.size}")
             mAdapter.submitList(movies)
             emptyState(empty = movies.isEmpty())
         }
@@ -82,7 +81,6 @@ class DownloadFragment : Fragment() {
 
     private fun initObserverSearchList() {
         viewModel.movieSearchList.observe(viewLifecycleOwner) { movies ->
-            Log.i("INFOTESTE", "MOVIE OBSERVER SearchMovies() === Movies: ${movies.size}")
             mAdapter.submitList(movies)
             emptyState(empty = movies.isEmpty())
         }
