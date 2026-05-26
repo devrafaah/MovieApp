@@ -14,21 +14,27 @@ class FirebaseHelper {
 
         fun validError(error: String): Int {
             return when {
+                error.contains("ERROR_USER_NOT_FOUND") ||
                 error.contains("There is no user record corresponding to this identifier") -> {
                     R.string.account_not_registered_register_fragment
                 }
+                error.contains("ERROR_INVALID_EMAIL") ||
                 error.contains("The email address is badly formatted") -> {
                     R.string.invalid_email_register_fragment
                 }
+                error.contains("ERROR_WRONG_PASSWORD") ||
                 error.contains("The password is invalid") -> {
                     R.string.invalid_password_register_fragment
                 }
+                error.contains("ERROR_EMAIL_ALREADY_IN_USE") ||
                 error.contains("The email address is already in use by another account") -> {
                     R.string.email_in_use_register_fragment
                 }
-                error.contains("The supplied auth credential is incorrect, malformed or has expired.") -> {
+                error.contains("ERROR_INVALID_CREDENTIAL") ||
+                error.contains("The supplied auth credential is incorrect, malformed or has expired") -> {
                     R.string.text_account_error_password_email_login_fragment
                 }
+                error.contains("ERROR_WEAK_PASSWORD") ||
                 error.contains("Password should be at least 6 characters") -> {
                     R.string.strong_password_register_fragment
                 }

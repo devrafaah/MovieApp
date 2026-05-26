@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 
+
 data class GetMovie(
     @SerializedName("adult")
     val adult: Boolean?,

@@ -1,5 +1,6 @@
 package com.example.movieapp.presenter.main.bottomBar.home.first_screen
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,21 +39,32 @@ class HomeViewModel @Inject constructor(
             try {
                 _homeState.postValue(StateView.Loading())
 
+                Log.d("INFOTESTE", "getGenres: buscando gêneros...")
                 val genres = getGenresUseCase.invoke()
+                Log.d("INFOTESTE", "getGenres: total recebido = ${genres.size}")
+                Log.d("INFOTESTE", "getGenres: lista = $genres")
+
+                if (genres.isEmpty()) {
+                    Log.w("INFOTESTE", "getGenres: lista de gêneros vazia!")
+                }
+
                 getMoviesByGenre(genres)
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("INFOTESTE", "getGenres: ERRO = ${e.message}", e)
                 _homeState.postValue(StateView.Error(e.message))
             }
         }
-
     }
+
     private fun getMoviesByGenre(genres: List<Genre>) {
         val moviesByGenre: MutableList<MoviesByGenre> = mutableListOf()
         viewModelScope.launch {
             genres.forEach { genre ->
                 try {
+                    Log.d("INFOTESTE", "getMoviesByGenre: buscando filmes do gênero '${genre.name}' (id=${genre.id})")
                     val movies = getMoviesByGenreUseCase(genreId = genre.id)
+                    Log.d("INFOTESTE", "getMoviesByGenre: '${genre.name}' -> ${movies.size} filmes recebidos")
+
                     val movieByGenre = MoviesByGenre(
                         id = genre.id,
                         name = genre.name,
@@ -60,12 +72,13 @@ class HomeViewModel @Inject constructor(
                     )
                     moviesByGenre.add(movieByGenre)
 
-                    if(moviesByGenre.size == genres.size) {
+                    if (moviesByGenre.size == genres.size) {
+                        Log.d("INFOTESTE", "getMoviesByGenre: todos os gêneros carregados (${moviesByGenre.size})")
                         _movieList.postValue(moviesByGenre)
                         _homeState.postValue(StateView.Success(Unit))
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    Log.e("INFOTESTE", "getMoviesByGenre: ERRO no gênero '${genre.name}' = ${e.message}", e)
                     _homeState.postValue(StateView.Error(e.message))
                 }
             }

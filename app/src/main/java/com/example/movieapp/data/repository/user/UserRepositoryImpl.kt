@@ -16,10 +16,10 @@ import kotlin.coroutines.resumeWithException
 
 class UserRepositoryImpl @Inject constructor(
     firebaseDatabase: FirebaseDatabase,
-    firebaseStorage: FirebaseStorage
+    private val firebaseStorage: FirebaseStorage
 ) : UserRepository {
 
-    private val profileImageRef = firebaseStorage.reference
+    private val profileImageRef get() = firebaseStorage.reference
         .child("profiles")
         .child(FirebaseHelper.getUserId())
         .child("image_profile.jpeg")
@@ -91,8 +91,6 @@ class UserRepositoryImpl @Inject constructor(
             }.addOnFailureListener {
                 continuation.resumeWithException(it)
             }.addOnSuccessListener {
-                // Handle successful uploads on complete
-                // ...
                 profileImageRef.downloadUrl.addOnCompleteListener { task ->
                     if(task.isSuccessful) {
                         val downloadUri = task.result.toString()
